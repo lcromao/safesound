@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSound - Transcrição de Áudio</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-microphone"></i> SafeSound</h1>
+                <p>Transcrição de áudio inteligente com OpenAI Whisper</p>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider round">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Configuration Panel -->
+            <div class="config-panel">
+                <div class="config-group">
+                    <label for="modelSelect">Modelo Whisper:</label>
+                    <select id="modelSelect" class="config-select">
+                        <option value="small">Small (Rápido)</option>
+                        <option value="medium">Medium (Balanceado)</option>
+                        <option value="turbo" selected>Turbo (Recomendado)</option>
+                    </select>
+                </div>
+                
+                <div class="config-group">
+                    <label for="actionSelect">Ação:</label>
+                    <select id="actionSelect" class="config-select">
+                        <option value="transcribe" selected>Transcrever</option>
+                        <option value="translate">Traduzir para Inglês</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <h2><i class="fas fa-upload"></i> Upload de Arquivo</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">Arraste e solte um arquivo de áudio aqui</p>
+                        <p class="upload-subtext">ou</p>
+                        <button class="upload-btn" id="uploadBtn">
+                            <i class="fas fa-folder-open"></i> Escolher Arquivo
+                        </button>
+                        <input type="file" id="fileInput" accept=".mp3,.wav,.m4a,.flac,.ogg" hidden>
+                        <p class="file-info">Formatos suportados: MP3, WAV, M4A, FLAC, OGG (máx. 100MB)</p>
+                    </div>
+                </div>
+                
+                <div class="file-selected" id="fileSelected" style="display: none;">
+                    <i class="fas fa-file-audio"></i>
+                    <span id="fileName"></span>
+                    <button class="remove-file" id="removeFile">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <button class="transcribe-btn" id="transcribeBtn" disabled>
+                    <i class="fas fa-play"></i> Transcrever Arquivo
+                </button>
+            </div>
+
+            <!-- Microphone Section -->
+            <div class="microphone-section">
+                <h2><i class="fas fa-microphone"></i> Transcrição em Tempo Real</h2>
+                
+                <div class="mic-controls">
+                    <button class="mic-btn" id="micBtn">
+                        <i class="fas fa-microphone"></i>
+                        <span>Iniciar Gravação</span>
+                    </button>
+                    
+                    <div class="recording-indicator" id="recordingIndicator" style="display: none;">
+                        <div class="pulse"></div>
+                        <span>Gravando...</span>
+                    </div>
+                </div>
+                
+                <div class="audio-visualizer" id="audioVisualizer" style="display: none;">
+                    <canvas id="visualizerCanvas" width="300" height="100"></canvas>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <h2><i class="fas fa-file-alt"></i> Resultado da Transcrição</h2>
+                
+                <div class="transcription-container">
+                    <div class="transcription-header">
+                        <div class="transcription-info">
+                            <span id="transcriptionInfo">Aguardando transcrição...</span>
+                        </div>
+                        <div class="transcription-actions">
+                            <button class="action-btn copy-btn" id="copyBtn" disabled>
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                            <button class="action-btn download-btn" id="downloadBtn" disabled>
+                                <i class="fas fa-download"></i> Baixar
+                            </button>
+                            <button class="action-btn clear-btn" id="clearBtn" disabled>
+                                <i class="fas fa-trash"></i> Limpar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="transcription-text" id="transcriptionText">
+                        <p class="placeholder-text">O texto transcrito aparecerá aqui...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Progress Modal -->
+    <div class="modal" id="progressModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog fa-spin"></i> Processando...</h3>
+            </div>
+            <div class="modal-body">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progressPercentage">0%</span>
+                        <span id="progressStatus">Iniciando...</span>
+                    </div>
+                </div>
+                <p class="progress-message" id="progressMessage">
+                    Transcrevendo seu áudio com o modelo Whisper...
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content error-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Erro</h3>
+                <button class="modal-close" id="closeErrorModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage">Ocorreu um erro durante o processamento.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeErrorBtn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification success" id="successNotification">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMessage">Operação realizada com sucesso!</span>
+        <button class="notification-close" onclick="this.parentElement.style.display='none'">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
