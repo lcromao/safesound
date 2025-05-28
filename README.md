@@ -1,66 +1,66 @@
-# SafeSound - Audio Transcription Application
+# SafeSound - Aplicativo de Transcrição de Áudio
 
-SafeSound is a complete web application for audio transcription using the **OpenAI Whisper** model. The application allows transcription of audio files uploaded by users and real-time transcription from microphone input.
+SafeSound é uma aplicação web completa para transcrição de áudio utilizando o modelo **OpenAI Whisper**. O aplicativo permite transcrição de arquivos de áudio enviados pelo usuário e transcrição em tempo real a partir do microfone.
 
-## 🚀 Features
+## 🚀 Funcionalidades
 
-- **Upload Transcription**: Support for MP3, WAV, M4A, FLAC, OGG files
-- **Real-time Transcription**: Capture and transcription via microphone
-- **Multiple Whisper Models**: Small, Medium, Turbo
-- **Translation**: Transcribe and translate to English
-- **Modern Interface**: Light/dark theme, drag & drop
-- **Visual Progress**: Progress bar during processing
-- **Export**: Copy and download transcriptions
+- **Transcrição por Upload**: Suporte a arquivos MP3, WAV, M4A, FLAC, OGG
+- **Transcrição em Tempo Real**: Captura e transcrição via microfone
+- **Múltiplos Modelos Whisper**: Small, Medium, Turbo
+- **Tradução**: Transcrever e traduzir para inglês
+- **Interface Moderna**: Tema claro/escuro, drag & drop
+- **Progresso Visual**: Barra de progresso durante processamento
+- **Exportação**: Copiar e baixar transcrições
 
-## 🛠️ Technologies
+## 🛠️ Tecnologias
 
 - **Backend**: FastAPI (Python)
 - **Frontend**: HTML5, CSS3, JavaScript ES6
-- **AI**: OpenAI Whisper
-- **Containerization**: Docker, Docker Compose
-- **Python Manager**: Conda
+- **IA**: OpenAI Whisper
+- **Containerização**: Docker, Docker Compose
+- **Gerenciador Python**: Conda
 
-## 📋 Prerequisites
+## 📋 Pré-requisitos
 
-### Option 1: Docker (Recommended)
+### Opção 1: Docker (Recomendado)
 - Docker
 - Docker Compose
 
-### Option 2: Local Development
+### Opção 2: Desenvolvimento Local
 - Python 3.9+
 - Conda
 - FFmpeg
 - Git
 
-## 🚀 Installation and Setup
+## 🚀 Instalação e Execução
 
-### Using Docker (Recommended)
+### Usando Docker (Recomendado)
 
-1. **Clone the repository**
+1. **Clone o repositório**
 ```bash
 git clone <repository-url>
 cd safesound
 ```
 
-2. **Run with Docker Compose**
+2. **Execute com Docker Compose**
 ```bash
 docker-compose up --build
 ```
 
-3. **Access the application**
+3. **Acesse a aplicação**
 ```
 http://localhost:8000
 ```
 
-### Local Development
+### Desenvolvimento Local
 
-1. **Clone the repository**
+1. **Clone o repositório**
 ```bash
 git clone <repository-url>
 cd safesound
 ```
 
-2. **Install FFmpeg**
+2. **Instale FFmpeg**
 ```bash
 # macOS
 brew install ffmpeg
@@ -69,102 +69,102 @@ brew install ffmpeg
 sudo apt update && sudo apt install ffmpeg
 
 # Windows
-# Download from https://ffmpeg.org/download.html
+# Baixe de https://ffmpeg.org/download.html
 ```
 
-3. **Create Conda environment**
+3. **Crie o ambiente Conda**
 ```bash
 conda env create -f environment.yml
 conda activate safesound
 ```
 
-4. **Install Python dependencies**
+4. **Instale dependências Python**
 ```bash
 pip install -r requirements.txt
 ```
 
-5. **Run the application**
+5. **Execute a aplicação**
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-6. **Access the application**
+6. **Acesse a aplicação**
 ```
 http://localhost:8000
 ```
 
-## 📁 Project Structure
+## 📁 Estrutura do Projeto
 
 ```
 safesound/
-├── main.py                 # Application entry point
-├── requirements.txt        # Python dependencies
-├── environment.yml         # Conda environment
-├── Dockerfile             # Docker image
-├── docker-compose.yml     # Container orchestration
-├── README.md              # Documentation
+├── main.py                 # Ponto de entrada da aplicação
+├── requirements.txt        # Dependências Python
+├── environment.yml         # Ambiente Conda
+├── Dockerfile             # Imagem Docker
+├── docker-compose.yml     # Orquestração de containers
+├── README.md              # Documentação
 ├── src/
-│   ├── core/              # Application configuration
+│   ├── core/              # Configurações da aplicação
 │   │   ├── __init__.py
 │   │   └── config.py
-│   ├── routes/            # API endpoints
+│   ├── routes/            # Endpoints da API
 │   │   ├── __init__.py
 │   │   └── transcribe.py
-│   ├── schemas/           # Pydantic models
+│   ├── schemas/           # Modelos Pydantic
 │   │   ├── __init__.py
 │   │   └── transcribe_schemas.py
-│   ├── services/          # Business logic
+│   ├── services/          # Lógica de negócio
 │   │   ├── __init__.py
 │   │   └── whisper_service.py
-│   ├── templates/         # HTML templates
+│   ├── templates/         # Templates HTML
 │   │   └── index.html
-│   └── static/            # Static files
+│   └── static/            # Arquivos estáticos
 │       ├── css/
 │       │   └── style.css
 │       ├── js/
 │       │   └── script.js
 │       └── images/
-├── tests/                 # Unit tests
-└── uploads/               # Upload directory (created automatically)
+├── tests/                 # Testes unitários
+└── uploads/               # Diretório de uploads (criado automaticamente)
 ```
 
-## 🎯 How to Use
+## 🎯 Como Usar
 
-### 1. Upload Transcription
+### 1. Transcrição por Upload
 
-1. Select the Whisper model (Small, Medium, Turbo)
-2. Choose the action (Transcribe or Translate)
-3. Drag an audio file or click "Choose File"
-4. Click "Transcribe File"
-5. Wait for processing and view the result
+1. Selecione o modelo Whisper (Small, Medium, Turbo)
+2. Escolha a ação (Transcrever ou Traduzir)
+3. Arraste um arquivo de áudio ou clique em "Escolher Arquivo"
+4. Clique em "Transcrever Arquivo"
+5. Aguarde o processamento e visualize o resultado
 
-### 2. Real-time Transcription
+### 2. Transcrição em Tempo Real
 
-1. Configure the desired model and action
-2. Click the microphone button
-3. Allow microphone access when prompted
-4. Speak near the microphone
-5. Click again to stop recording
-6. View real-time transcription
+1. Configure o modelo e ação desejados
+2. Clique no botão do microfone
+3. Permita o acesso ao microfone quando solicitado
+4. Fale próximo ao microfone
+5. Clique novamente para parar a gravação
+6. Visualize a transcrição em tempo real
 
-### 3. Manage Results
+### 3. Gerenciar Resultados
 
-- **Copy**: Copies text to clipboard
-- **Download**: Saves transcription as .txt file
-- **Clear**: Removes text from interface
+- **Copiar**: Copia o texto para área de transferência
+- **Baixar**: Salva a transcrição como arquivo .txt
+- **Limpar**: Remove o texto da interface
 
-### 4. Dark Theme
+### 4. Tema Escuro
 
-Use the toggle in the top right corner to switch between light and dark theme. Preference is saved automatically.
+Use o toggle no canto superior direito para alternar entre tema claro e escuro. A preferência é salva automaticamente.
 
-## 🔧 Configuration
+## 🔧 Configuração
 
-### Environment Variables
+### Variáveis de Ambiente
 
-Create a `.env` file in the project root to customize settings:
+Crie um arquivo `.env` na raiz do projeto para personalizar configurações:
 
 ```env
-# Application
+# Aplicação
 DEBUG=True
 HOST=0.0.0.0
 PORT=8000
@@ -173,45 +173,45 @@ PORT=8000
 DEFAULT_WHISPER_MODEL=turbo
 
 # Upload
-MAX_FILE_SIZE=104857600  # 100MB in bytes
+MAX_FILE_SIZE=104857600  # 100MB em bytes
 UPLOAD_DIR=uploads
 
-# Audio
+# Áudio
 CHUNK_DURATION=5
 SAMPLE_RATE=16000
 ```
 
-### Available Whisper Models
+### Modelos Whisper Disponíveis
 
-- **Small**: Fast, lower accuracy (~39 MB)
-- **Medium**: Balanced speed and accuracy (~769 MB)
-- **Turbo**: Optimized, good speed and accuracy (~809 MB)
+- **Small**: Rápido, menor precisão (~39 MB)
+- **Medium**: Balanceado entre velocidade e precisão (~769 MB)
+- **Turbo**: Otimizado, boa velocidade e precisão (~809 MB)
 
 ## 📊 API Endpoints
 
-### File Upload
+### Upload de Arquivo
 ```http
 POST /api/upload_audio
 Content-Type: multipart/form-data
 
 Parameters:
-- file: audio file
-- model: whisper model (small|medium|turbo)
-- action: action (transcribe|translate)
-- language: optional language
+- file: arquivo de áudio
+- model: modelo whisper (small|medium|turbo)
+- action: ação (transcribe|translate)
+- language: idioma opcional
 ```
 
-### Real-time Transcription
+### Transcrição em Tempo Real
 ```http
 WebSocket /api/transcribe_stream
 
-Messages:
-- Initial configuration (JSON)
-- Audio chunks (binary)
-- Transcription responses (JSON)
+Mensagens:
+- Configuração inicial (JSON)
+- Chunks de áudio (binary)
+- Respostas de transcrição (JSON)
 ```
 
-### Available Models
+### Modelos Disponíveis
 ```http
 GET /api/models
 
@@ -233,62 +233,62 @@ Response:
 }
 ```
 
-## 🧪 Testing
+## 🧪 Testes
 
-Run unit tests:
+Execute os testes unitários:
 
 ```bash
-# With pytest
+# Com pytest
 conda activate safesound
 pytest tests/
 
-# With coverage
+# Com coverage
 pytest tests/ --cov=src --cov-report=html
 ```
 
-## 🐛 Troubleshooting
+## 🐛 Solução de Problemas
 
-### Microphone Permission Error
-- Check if browser has permission to access microphone
-- Use HTTPS in production (required for microphone)
+### Erro de Permissão do Microfone
+- Verifique se o navegador tem permissão para acessar o microfone
+- Use HTTPS em produção (obrigatório para microfone)
 
-### File Upload Error
-- Check if file is in supported format
-- Confirm size doesn't exceed 100MB
-- Make sure there's sufficient disk space
+### Erro de Upload de Arquivo
+- Verifique se o arquivo está em formato suportado
+- Confirme se o tamanho não excede 100MB
+- Certifique-se de que há espaço em disco suficiente
 
-### Whisper Model Error
-- Wait for model download on first run
-- Check internet connection for model downloads
-- Confirm sufficient disk space
+### Erro de Modelo Whisper
+- Aguarde o download do modelo na primeira execução
+- Verifique conexão com internet para download dos modelos
+- Confirme se há espaço em disco suficiente
 
-### Slow Performance
-- Use GPU if available (CUDA)
-- Consider using smaller models (small) for faster speed
-- Check system resources (RAM, CPU)
+### Performance Lenta
+- Use GPU se disponível (CUDA)
+- Considere usar modelos menores (small) para maior velocidade
+- Verifique recursos do sistema (RAM, CPU)
 
-## 🤝 Contributing
+## 🤝 Contribuição
 
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-## 📝 License
+## 📝 Licença
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## 🙏 Acknowledgments
+## 🙏 Agradecimentos
 
-- [OpenAI Whisper](https://github.com/openai/whisper) - Speech-to-text model
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework
-- [PyTorch](https://pytorch.org/) - Machine learning framework
+- [OpenAI Whisper](https://github.com/openai/whisper) - Modelo de speech-to-text
+- [FastAPI](https://fastapi.tiangolo.com/) - Framework web moderno
+- [PyTorch](https://pytorch.org/) - Framework de machine learning
 
-## 📞 Support
+## 📞 Suporte
 
-For support, open an issue on GitHub or contact via email.
+Para suporte, abra uma issue no GitHub ou entre em contato através do email.
 
 ---
 
-Developed with ❤️ to simplify audio transcription
+Desenvolvido com ❤️ para facilitar a transcrição de áudio
