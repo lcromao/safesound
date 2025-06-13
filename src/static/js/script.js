@@ -107,7 +107,7 @@ class SafeSound {
         if (!file) return;
         
         // Validate file type
-        const allowedTypes = ['.mp3', '.wav', '.m4a', '.flac', '.ogg'];
+        const allowedTypes = ['.mp3', '.wav', '.m4a', '.flac', '.ogg', '.opus'];
         const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
         
         if (!allowedTypes.includes(fileExtension)) {

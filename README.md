@@ -27,7 +27,7 @@ SafeSound é uma aplicação web completa para transcrição de áudio utilizand
 - Docker Compose
 
 ### Opção 2: Desenvolvimento Local
-- Python 3.9+
+- Python 3.8-3.11 (recomendado 3.9)
 - Conda
 - FFmpeg
 - Git
@@ -85,7 +85,7 @@ pip install -r requirements.txt
 
 5. **Execute a aplicação**
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host localhost --port 8000 --reload
 ```
 
 6. **Acesse a aplicação**

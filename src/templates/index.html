@@ -62,8 +62,8 @@
                         <button class="upload-btn" id="uploadBtn">
                             <i class="fas fa-folder-open"></i> Escolher Arquivo
                         </button>
-                        <input type="file" id="fileInput" accept=".mp3,.wav,.m4a,.flac,.ogg" hidden>
-                        <p class="file-info">Formatos suportados: MP3, WAV, M4A, FLAC, OGG (máx. 100MB)</p>
+                        <input type="file" id="fileInput" accept="{{ allowed_extensions | join(',') }}" hidden>
+                        <p class="file-info">Formatos suportados: {{ allowed_extensions | join(', ') | upper }} (máx. 100MB)</p>
                     </div>
                 </div>
                 
